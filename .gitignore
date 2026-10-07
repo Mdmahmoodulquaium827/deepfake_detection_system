@@ -48,3 +48,7 @@ desktop.ini
 
 # VS Code
 .vscode/
+
+
+# model/
+models/*
