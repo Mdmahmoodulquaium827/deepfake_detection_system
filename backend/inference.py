@@ -252,17 +252,15 @@ def predict_video(video_path):
             2
         ),
 
-        "probabilities": {
-            "real": round(
-                real_probability,
-                2
-            ),
+        "real_probability": round(
+            real_probability,
+            2
+        ),
 
-            "fake": round(
-                fake_probability,
-                2
-            )
-        },
+        "fake_probability": round(
+            fake_probability,
+            2
+        ),
 
         "frames_analyzed": NUM_FRAMES
     }
