@@ -14,9 +14,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from inference import predict_video
 
 
-# ============================================================
+
 # FASTAPI APPLICATION
-# ============================================================
+
 
 app = FastAPI(
     title="Deepfake Detection API",
@@ -25,33 +25,25 @@ app = FastAPI(
 )
 
 
-# ============================================================
 # CORS
-# ============================================================
+
 
 app.add_middleware(
     CORSMiddleware,
-
-    # Next.js development server
     allow_origins=[
-        "http://localhost:3000"
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://192.168.0.104:3000",
     ],
-
     allow_credentials=True,
-
-    allow_methods=[
-        "*"
-    ],
-
-    allow_headers=[
-        "*"
-    ]
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
-# ============================================================
+
 # UPLOAD DIRECTORY
-# ============================================================
+
 
 UPLOAD_DIR = os.path.join(
     os.path.dirname(__file__),
@@ -64,9 +56,9 @@ os.makedirs(
 )
 
 
-# ============================================================
+
 # ALLOWED VIDEO TYPES
-# ============================================================
+
 
 ALLOWED_EXTENSIONS = {
     ".mp4",
@@ -76,9 +68,9 @@ ALLOWED_EXTENSIONS = {
 }
 
 
-# ============================================================
+
 # HEALTH CHECK
-# ============================================================
+
 
 @app.get("/")
 def root():
@@ -89,9 +81,9 @@ def root():
     }
 
 
-# ============================================================
+
 # MODEL INFORMATION
-# ============================================================
+
 
 @app.get("/model-info")
 def model_info():
@@ -103,22 +95,27 @@ def model_info():
         "classes": [
             "REAL",
             "FAKE"
-        ]
+        ],
+
+        # Training information
+        "training_accuracy": 99.94,
+        "validation_accuracy": 92.00,
+        "validation_error": 8.00,
+        "learning_rate": 0.0001
     }
 
 
-# ============================================================
+
 # VIDEO PREDICTION
-# ============================================================
+
 
 @app.post("/predict")
 async def predict(
     file: UploadFile = File(...)
 ):
 
-    # ------------------------------------
     # Check filename
-    # ------------------------------------
+
 
     if not file.filename:
 
@@ -128,9 +125,8 @@ async def predict(
         )
 
 
-    # ------------------------------------
     # Check extension
-    # ------------------------------------
+
 
     extension = os.path.splitext(
         file.filename
@@ -147,9 +143,9 @@ async def predict(
         )
 
 
-    # ------------------------------------
+
     # Generate unique filename
-    # ------------------------------------
+
 
     unique_filename = (
         f"{uuid.uuid4()}{extension}"
@@ -163,9 +159,9 @@ async def predict(
 
     try:
 
-        # --------------------------------
+
         # Save uploaded video
-        # --------------------------------
+
 
         with open(
             file_path,
@@ -178,18 +174,18 @@ async def predict(
             )
 
 
-        # --------------------------------
+
         # Run model
-        # --------------------------------
+    
 
         result = predict_video(
             file_path
         )
 
 
-        # --------------------------------
+
         # Return prediction
-        # --------------------------------
+
 
         return {
             "success": True,
@@ -215,9 +211,9 @@ async def predict(
 
     finally:
 
-        # --------------------------------
+
         # Delete uploaded video
-        # --------------------------------
+
 
         if os.path.exists(file_path):
 
