@@ -6,9 +6,7 @@ import numpy as np
 from model import DeepfakeXception
 
 
-# ============================================================
 # CONFIGURATION
-# ============================================================
 
 NUM_FRAMES = 15
 IMG_SIZE = 224
@@ -30,11 +28,7 @@ CLASS_NAMES = {
     1: "FAKE"
 }
 
-
-# ============================================================
 # DEVICE
-# ============================================================
-
 device = torch.device(
     "cuda" if torch.cuda.is_available() else "cpu"
 )
@@ -45,10 +39,7 @@ print("========================================")
 print("Device:", device)
 print("Model:", MODEL_PATH)
 
-
-# ============================================================
 # LOAD MODEL
-# ============================================================
 
 model = DeepfakeXception()
 
@@ -69,10 +60,7 @@ model.eval()
 print("Model loaded successfully.")
 print("========================================")
 
-
-# ============================================================
 # VIDEO FRAME EXTRACTION
-# ============================================================
 
 def extract_frames(video_path):
 
@@ -170,16 +158,11 @@ def extract_frames(video_path):
 
     return torch.stack(frames)
 
-
-# ============================================================
 # PREDICT VIDEO
-# ============================================================
 
 def predict_video(video_path):
 
-    # ------------------------------------
     # Extract 15 frames
-    # ------------------------------------
 
     video_tensor = extract_frames(
         video_path
@@ -199,9 +182,7 @@ def predict_video(video_path):
         device
     )
 
-    # ------------------------------------
     # Model inference
-    # ------------------------------------
 
     with torch.no_grad():
 
