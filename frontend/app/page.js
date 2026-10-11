@@ -9,9 +9,8 @@ export default function Home() {
   const [error, setError] = useState("");
   const [status, setStatus] = useState("");
 
-  // ============================================================
+
   // VIDEO SELECTION
-  // ============================================================
 
   const handleVideoChange = (e) => {
     const selectedVideo = e.target.files[0];
@@ -24,10 +23,8 @@ export default function Home() {
     }
   };
 
-  // ============================================================
+ 
   // ANALYZE VIDEO
-  // ============================================================
-
   const analyzeVideo = async () => {
     if (!video) {
       setError("Please select a video first.");
@@ -41,17 +38,8 @@ export default function Home() {
     setStatus("Uploading video...");
 
     try {
-      // --------------------------------------------------------
-      // Create FormData
-      // --------------------------------------------------------
-
+   
       const formData = new FormData();
-
-      // IMPORTANT:
-      // This must match FastAPI:
-      //
-      // file: UploadFile = File(...)
-      //
 
       formData.append("file", video);
 
@@ -61,9 +49,6 @@ export default function Home() {
 
       setStatus("Sending video to the detection server...");
 
-      // --------------------------------------------------------
-      // Send request to FastAPI
-      // --------------------------------------------------------
 
       const response = await fetch(
         "http://192.168.0.104:8000/predict",
@@ -75,17 +60,9 @@ export default function Home() {
 
       console.log("Response status:", response.status);
 
-      // --------------------------------------------------------
-      // Read response
-      // --------------------------------------------------------
-
       const data = await response.json();
 
       console.log("Backend response:", data);
-
-      // --------------------------------------------------------
-      // Check response
-      // --------------------------------------------------------
 
       if (!response.ok) {
         throw new Error(
@@ -93,9 +70,6 @@ export default function Home() {
         );
       }
 
-      // --------------------------------------------------------
-      // Store backend result
-      // --------------------------------------------------------
 
       setResult(data);
 
@@ -119,16 +93,10 @@ export default function Home() {
     }
   };
 
-  // ============================================================
-  // UI
-  // ============================================================
 
   return (
     <main className="min-h-screen bg-gray-100 px-6 py-12">
 
-      {/* ======================================================
-          HEADER
-          ====================================================== */}
 
       <div className="text-center mb-10">
 
@@ -143,9 +111,7 @@ export default function Home() {
       </div>
 
 
-      {/* ======================================================
-          UPLOAD CARD
-          ====================================================== */}
+       {/* UPLOAD CARD */}
 
       <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-8">
 
@@ -179,9 +145,7 @@ export default function Home() {
         />
 
 
-        {/* ==================================================
-            SELECTED VIDEO
-            ================================================== */}
+        {/* SELECTED VIDEO */}
 
         {video && (
 
@@ -204,9 +168,7 @@ export default function Home() {
         )}
 
 
-        {/* ==================================================
-            ANALYZE BUTTON
-            ================================================== */}
+        {/* ANALYZE BUTTON */}
 
         <button
           onClick={analyzeVideo}
@@ -235,9 +197,7 @@ export default function Home() {
       </div>
 
 
-      {/* ======================================================
-          STATUS
-          ====================================================== */}
+      {/*  STATUS */}
 
       {loading && (
 
@@ -287,9 +247,7 @@ export default function Home() {
       )}
 
 
-      {/* ======================================================
-          STATUS MESSAGE
-          ====================================================== */}
+      {/* STATUS MESSAGE */}
 
       {!loading && status && !result && (
 
@@ -314,9 +272,7 @@ export default function Home() {
       )}
 
 
-      {/* ======================================================
-          ERROR
-          ====================================================== */}
+      {/* ERROR */}
 
       {!loading && error && (
 
@@ -352,9 +308,7 @@ export default function Home() {
       )}
 
 
-      {/* ======================================================
-          DEEPFAKE RESULT
-          ====================================================== */}
+      {/*  DEEPFAKE RESULT */}
 
       {!loading && result && (
 
@@ -369,9 +323,7 @@ export default function Home() {
             p-8
           ">
 
-            {/* ----------------------------------------------
-                TITLE
-            ---------------------------------------------- */}
+            {/*  TITLE */}
 
             <div className="text-center mb-6">
 
@@ -390,9 +342,7 @@ export default function Home() {
             </div>
 
 
-            {/* ----------------------------------------------
-                PREDICTION
-            ---------------------------------------------- */}
+            {/*  PREDICTION */}
 
             <div className="text-center mb-7">
 
@@ -417,8 +367,8 @@ export default function Home() {
 
                 <span>
                   {result.prediction === "FAKE"
-                    ? "⚠️"
-                    : "✅"}
+                    ? ""
+                    : ""}
                 </span>
 
                 {result.prediction === "FAKE"
@@ -430,9 +380,7 @@ export default function Home() {
             </div>
 
 
-            {/* ----------------------------------------------
-                CONFIDENCE
-            ---------------------------------------------- */}
+            {/*  CONFIDENCE */}
 
             <div className="text-center mb-8">
 
@@ -449,9 +397,7 @@ export default function Home() {
             </div>
 
 
-            {/* ----------------------------------------------
-                REAL PROBABILITY
-            ---------------------------------------------- */}
+            {/*  REAL PROBABILITY */}
 
             <div className="mb-6">
 
@@ -500,9 +446,7 @@ export default function Home() {
             </div>
 
 
-            {/* ----------------------------------------------
-                FAKE PROBABILITY
-            ---------------------------------------------- */}
+            {/*FAKE PROBABILITY */}
 
             <div className="mb-6">
 
@@ -551,9 +495,7 @@ export default function Home() {
             </div>
 
 
-            {/* ----------------------------------------------
-                FRAMES ANALYZED
-            ---------------------------------------------- */}
+            {/* FRAMES ANALYZED */}
 
             <div className="
               border-t
@@ -579,9 +521,7 @@ export default function Home() {
             </div>
 
 
-            {/* ----------------------------------------------
-                RAW RESULT - DEBUG
-            ---------------------------------------------- */}
+            {/*  RAW RESULT - DEBUG */}
 
             <div className="
               mt-6

@@ -10,9 +10,7 @@ export default function PredictionResult({ result }) {
 
       <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
 
-        {/* ==================================================
-            TITLE
-            ================================================== */}
+        {/*  TITLE */}
 
         <div className="text-center mb-6">
 
@@ -23,9 +21,7 @@ export default function PredictionResult({ result }) {
         </div>
 
 
-        {/* ==================================================
-            PREDICTION
-            ================================================== */}
+        {/* PREDICTION */}
 
         <div className="text-center mb-6">
 
@@ -53,9 +49,7 @@ export default function PredictionResult({ result }) {
         </div>
 
 
-        {/* ==================================================
-            CONFIDENCE
-            ================================================== */}
+        {/* CONFIDENCE */}
 
         <div className="text-center mb-8">
 
@@ -70,9 +64,7 @@ export default function PredictionResult({ result }) {
         </div>
 
 
-        {/* ==================================================
-            REAL PROBABILITY
-            ================================================== */}
+        {/*  REAL PROBABILITY */}
 
         <div className="mb-5">
 
@@ -103,9 +95,7 @@ export default function PredictionResult({ result }) {
         </div>
 
 
-        {/* ==================================================
-            FAKE PROBABILITY
-            ================================================== */}
+        {/*  FAKE PROBABILITY */}
 
         <div className="mb-6">
 
@@ -136,9 +126,7 @@ export default function PredictionResult({ result }) {
         </div>
 
 
-        {/* ==================================================
-            FRAMES ANALYZED
-            ================================================== */}
+        {/* FRAMES ANALYZED */}
 
         <div className="text-center border-t border-gray-200 pt-5">
 
