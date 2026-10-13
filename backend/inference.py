@@ -33,9 +33,9 @@ device = torch.device(
     "cuda" if torch.cuda.is_available() else "cpu"
 )
 
-print("========================================")
+
 print("Deepfake Detection Inference")
-print("========================================")
+
 print("Device:", device)
 print("Model:", MODEL_PATH)
 
@@ -58,7 +58,7 @@ model.to(device)
 model.eval()
 
 print("Model loaded successfully.")
-print("========================================")
+
 
 # VIDEO FRAME EXTRACTION
 
@@ -204,9 +204,9 @@ def predict_video(video_path):
             dim=1
         ).item()
 
-    # ------------------------------------
+  
     # Results
-    # ------------------------------------
+   
 
     prediction = CLASS_NAMES[
         predicted_class
